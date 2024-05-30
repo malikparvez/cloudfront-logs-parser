@@ -8,7 +8,7 @@ This repository contains code to parse CloudFront logs from an S3 bucket and sen
 
 ```bash
 mkdir package
-pip3 install --target ./package opensearch-py
+pip3 install --target ./package opensearch-py user-agents
 cd package
 zip -r ../my_deployment_package.zip .
 cd ..
