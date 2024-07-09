@@ -135,7 +135,10 @@ def parse_cloudfront_logs(log_file):
         # rather than strings.
         for name, converter_function in numeric_fields.items():
             try:
-                log_data[name] = converter_function(log_data[name])
+                if log_data[name] != '-':
+                    log_data[name] = converter_function(log_data[name])
+                else:
+                    log_data[name] = None
             except ValueError:
                 pass
 
