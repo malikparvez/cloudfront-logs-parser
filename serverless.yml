@@ -1,0 +1,44 @@
+frameworkVersion: "3"
+
+service: cloudfront-logs-parser-lambda-opensearch
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: python3.11
+  environment:
+    PYTHONPATH: ./src
+    AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+    AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+    OPENSEARCH_HOST: ${{ secrets.OPENSEARCH_HOST }}
+    OPENSEARCH_USERNAME: ${{ secrets.OPENSEARCH_USERNAME }}
+    OPENSEARCH_PASSWORD: ${{ secrets.OPENSEARCH_PASSWORD }}
+  region: us-west-2
+
+
+package:
+  patterns:
+    # exclude everything
+    - "!./**"
+    # include only what's needed
+    - src/cloudfront_parser.py
+    - src/lambda_handler.py
+    - src/version.py
+
+functions:
+  genlicense:
+    handler: src/lambda_handler.handler
+    events:
+      - s3:
+          bucket: your-s3-bucket-name
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: path/to/your/logs/
+              suffix: .gz
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    fileName: requirements-lambda.txt
