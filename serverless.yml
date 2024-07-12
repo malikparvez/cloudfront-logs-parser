@@ -33,7 +33,7 @@ functions:
           event: s3:ObjectCreated:*
           rules:
             - prefix: /test/
-              suffix: .gz
+            - suffix: .gz
           existing: true
 
 plugins:
