@@ -13,7 +13,7 @@ provider:
     OPENSEARCH_HOST: ${{ secrets.OPENSEARCH_HOST }}
     OPENSEARCH_USERNAME: ${{ secrets.OPENSEARCH_USERNAME }}
     OPENSEARCH_PASSWORD: ${{ secrets.OPENSEARCH_PASSWORD }}
-  region: us-west-2
+  region: ap-south-1
 
 
 package:
