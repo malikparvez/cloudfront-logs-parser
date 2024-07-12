@@ -1,82 +1,106 @@
-<!--
-title: 'AWS Python Example'
-description: 'This template demonstrates how to deploy a Python function running on AWS Lambda using the traditional Serverless Framework.'
-layout: Doc
-framework: v3
-platform: AWS
-language: python
-priority: 2
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
--->
+# CloudFront Logs Parser Lambda OpenSearch
+
+This project is a Serverless application that parses CloudFront logs stored in an S3 bucket and ingests them into an OpenSearch cluster. The application is built using Python and deployed using the Serverless Framework. CI/CD is managed with GitHub Actions.
 
 
-# Serverless Framework AWS Python Example
+## Prerequisites
 
-This template demonstrates how to deploy a Python function running on AWS Lambda using the traditional Serverless Framework. The deployed function does not include any event definitions as well as any kind of persistence (database). For more advanced configurations check out the [examples repo](https://github.com/serverless/examples/) which includes integrations with SQS, DynamoDB or examples of functions that are triggered in `cron`-like manner. For details about configuration of specific `events`, please refer to our [documentation](https://www.serverless.com/framework/docs/providers/aws/events/).
+1. Node.js and npm
+2. Serverless Framework
+3. AWS Account
+4. OpenSearch Cluster
 
-## Usage
+## Setup using github actions
 
-### Deployment
+### Step1: Fork this repo
 
-In order to deploy the example, you need to run the following command:
-
-```
-$ serverless deploy
-```
-
-After running deploy, you should see output similar to:
+### Step2: Add secrets:
+Add the following secrets to your GitHub repository settings:
 
 ```bash
-Deploying aws-python-project to stage dev (us-east-1)
-
-✔ Service deployed to stack aws-python-project-dev (112s)
-
-functions:
-  hello: aws-python-project-dev-hello (1.5 kB)
+AWS_ACCESS_KEY
+AWS_SECRET_KEY
+OPENSEARCH_HOST
+OPENSEARCH_USERNAME
+OPENSEARCH_PASSWORD
+BUCKET_NAME
 ```
 
-### Invocation
+### Step3: Deploy the Application:
 
-After successful deployment, you can invoke the deployed function by using the following command:
+Deploy the Serverless application to AWS using [deploy](.github/workflows/deploy.yml) action
+
+
+## Serverless Configuration
+The Serverless configuration is set up to handle S3 events for the specified bucket. It uses the serverless-python-requirements plugin to manage Python dependencies.
+
+Source Code
+src/cloudfront_parser.py: Contains the logic to parse CloudFront logs.
+src/lambda_handler.py: AWS Lambda handler to process S3 events, parse logs, and ingest into OpenSearch.
+src/version.py: Contains version information.
+
+## Testing
+To run tests, use the following command:
 
 ```bash
-serverless invoke --function hello
+pytest
 ```
 
-Which should result in response similar to the following:
+## Manual installation 
 
-```json
-{
-    "statusCode": 200,
-    "body": "{\"message\": \"Go Serverless v3.0! Your function executed successfully!\", \"input\": {}}"
-}
-```
-
-### Local development
-
-You can invoke your function locally by using the following command:
+### Step 1: Package Installation
 
 ```bash
-serverless invoke local --function hello
+git clone git@github.com:malikparvez/cloudfront-logs-parser-lambda-opensearch.git
+
+cd cloudfront-logs-parser-lambda-opensearch
 ```
 
-Which should result in response similar to the following:
-
-```
-{
-    "statusCode": 200,
-    "body": "{\"message\": \"Go Serverless v3.0! Your function executed successfully!\", \"input\": {}}"
-}
-```
-
-### Bundling dependencies
-
-In case you would like to include third-party dependencies, you will need to use a plugin called `serverless-python-requirements`. You can set it up by running the following command:
+Install Python Dependencies:
+Ensure you have Python 3.11 installed. Install the necessary Python packages using pip:
 
 ```bash
-serverless plugin install -n serverless-python-requirements
+pip3 install --target ./package -r requirements-lambda.txt
+cd package
+zip -r ../my_deployment_package.zip .
+cd ..
+zip my_deployment_package.zip lambda_function.py
 ```
 
-Running the above will automatically add `serverless-python-requirements` to `plugins` section in your `serverless.yml` file and add it as a `devDependency` to `package.json` file. The `package.json` file will be automatically created if it doesn't exist beforehand. Now you will be able to add your dependencies to `requirements.txt` file (`Pipfile` and `pyproject.toml` is also supported but requires additional configuration) and they will be automatically injected to Lambda package during build process. For more details about the plugin's configuration, please refer to [official documentation](https://github.com/UnitedIncome/serverless-python-requirements).
+### Step 2: AWS Lambda Deployment
+Upload the generated zip file (my_deployment_package.zip) to AWS Lambda. Set the following environment variables in Lambda:
+
+
+### Step 3: AWS And OpenSearch Credentials
+Set the following AWS and OpenSearch credentials as environment variables:
+
+```
+aws_access_key = ''
+aws_secret_key = ''
+opensearch_host = ''
+opensearch_username = ''
+opensearch_password = ''
+```
+
+### Step 4: Set Up S3 Event Trigger
+To automatically trigger the Lambda function when new CloudFront logs are added to your S3 bucket, follow these steps:
+
+1. Navigate to the AWS S3 console.
+2. Select the S3 bucket containing your CloudFront logs.
+3. Go to the "Properties" tab and click on "Events."
+4. Add a new event configuration with the following settings:
+5. Event Name: Choose a descriptive name (e.g., "CloudFrontLogsEvent").
+6. Events: Select "PUT" event
+7. Prefix: (Optional) Specify a prefix if your CloudFront logs are stored in a specific folder within the bucket.
+8. Suffix: (Optional) Specify a suffix if your CloudFront logs have a specific file extension.
+9. Click "Add" to save the configuration.
+    
+Now, whenever new CloudFront logs are added to the specified S3 bucket, the Lambda function will be automatically triggered to parse and send the data to OpenSearch.
+
+
+## Contributing
+Contributions are welcome! Please create a pull request or open an issue to discuss any changes.
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
