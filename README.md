@@ -106,7 +106,7 @@ To automatically trigger the Lambda function when new CloudFront logs are added 
     
 Now, whenever new CloudFront logs are added to the specified S3 bucket, the Lambda function will be automatically triggered to parse and send the data to OpenSearch.
 
-## Issues
+## Challenges
 1. Make sure to have right permissions for the IAM role you have added.
 
 ## Contributing
