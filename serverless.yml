@@ -32,12 +32,12 @@ functions:
     handler: src/lambda_handler.handler
     events:
       - s3:
-          bucket: test1
+          bucket: parveztest
           event: s3:ObjectCreated:*
           rules:
             - prefix: /test/
               suffix: .gz
-          # existing: true
+          existing: true
 
 plugins:
   - serverless-python-requirements
