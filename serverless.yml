@@ -8,8 +8,8 @@ provider:
   runtime: python3.11
   environment:
     PYTHONPATH: ./src
-    MY_ACCESS_KEY: test
-    MY_SECRET_KEY: test
+    MY_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+    MY_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
     OPENSEARCH_HOST: ${{ secrets.OPENSEARCH_HOST }}
     OPENSEARCH_USERNAME: ${{ secrets.OPENSEARCH_USERNAME }}
     OPENSEARCH_PASSWORD: ${{ secrets.OPENSEARCH_PASSWORD }}
