@@ -30,7 +30,7 @@ functions:
     handler: src/lambda_handler.handler
     events:
       - s3:
-          bucket: ${{ secrets.BUCKET_NAME }}
+          bucket: test
           event: s3:ObjectCreated:*
           rules:
             - prefix: /test/
