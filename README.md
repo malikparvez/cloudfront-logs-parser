@@ -13,7 +13,10 @@ This project is a Serverless application that parses CloudFront logs stored in a
 ## Setup using github actions
 
 ### Step1: Fork this repo
-Update the serverless.yml with desired s3 bucket name
+
+Update the serverless.yml with below details
+1. desired s3 bucket name and prefix
+2. Add requried region
 
 ### Step2: Add secrets:
 Add the following secrets to your GitHub repository settings:
@@ -81,11 +84,11 @@ Upload the generated zip file (my_deployment_package.zip) to AWS Lambda. Set the
 Set the following AWS and OpenSearch credentials as environment variables:
 
 ```
-aws_access_key = ''
-aws_secret_key = ''
-opensearch_host = ''
-opensearch_username = ''
-opensearch_password = ''
+MY_AWS_ACCESS_KEY = ''
+MY_AWS_SECRET_KEY = ''
+OPENSEARCH_HOST = ''
+OPENSEARCH_USERNAME = ''
+OPENSEARCH_PASSWORD = ''
 ```
 
 ### Step 4: Set Up S3 Event Trigger
@@ -103,6 +106,8 @@ To automatically trigger the Lambda function when new CloudFront logs are added 
     
 Now, whenever new CloudFront logs are added to the specified S3 bucket, the Lambda function will be automatically triggered to parse and send the data to OpenSearch.
 
+## Issues
+1. Make sure to have right permissions for the IAM role you have added.
 
 ## Contributing
 Contributions are welcome! Please create a pull request or open an issue to discuss any changes.

@@ -9,13 +9,13 @@ from src.cloudfront_parser import parse_cloudfront_logs
 def lambda_handler(event, context):
     try:
         # AWS credentials from env variables
-        aws_access_key = os.environ['my_aws_access_key']
-        aws_secret_key = os.environ['my_aws_secret_key']
+        aws_access_key = os.environ['MY_AWS_ACCESS_KEY']
+        aws_secret_key = os.environ['MY_AWS_SECRET_KEY']
 
         # OpenSearch credentials from env variables
-        opensearch_host = os.environ['opensearch_host']
-        opensearch_username = os.environ['opensearch_username']
-        opensearch_password = os.environ['opensearch_password']
+        opensearch_host = os.environ['OPENSEARCH_HOST']
+        opensearch_username = os.environ['OPENSEARCH_USERNAME']
+        opensearch_password = os.environ['OPENSEARCH_PASSWORD']
 
 
         # Get the S3 bucket and key from the S3 event
