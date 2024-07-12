@@ -26,11 +26,11 @@ package:
     - src/version.py
 
 functions:
-  genlicense:
+  cloudfront-logs-parser-lambda-opensearch:
     handler: src/lambda_handler.handler
     events:
       - s3:
-          bucket: your-s3-bucket-name
+          bucket: ${{ secrets.BUCKET_NAME }}
           event: s3:ObjectCreated:*
           rules:
             - prefix: path/to/your/logs/
