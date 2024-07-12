@@ -61,10 +61,16 @@ Ensure you have Python 3.11 installed. Install the necessary Python packages usi
 
 ```bash
 pip3 install --target ./package -r requirements-lambda.txt
+
 cd package
+
 zip -r ../my_deployment_package.zip .
+
 cd ..
-zip my_deployment_package.zip lambda_function.py
+
+cd src
+
+zip -r ../my_deployment_package.zip cloudfront_parser.py lambda_handler.py version.py
 ```
 
 ### Step 2: AWS Lambda Deployment
