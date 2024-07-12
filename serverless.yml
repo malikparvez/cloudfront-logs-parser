@@ -28,7 +28,7 @@ package:
     - src/version.py
 
 functions:
-  cloudfront_logs_parser:
+  cloudfrontLogs:
     handler: src/lambda_handler.handler
     events:
       - s3:
