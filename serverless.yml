@@ -28,7 +28,7 @@ package:
     - src/version.py
 
 functions:
-  cloudfront-logs-parser-lambda-opensearch:
+  cloudfront_logs_parser:
     handler: src/lambda_handler.handler
     events:
       - s3:
