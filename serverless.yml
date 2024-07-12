@@ -37,6 +37,7 @@ functions:
             - prefix: logs/
             - suffix: .gz
           existing: true
+          forceDeploy: true
 
 plugins:
   - serverless-python-requirements
