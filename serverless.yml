@@ -33,7 +33,7 @@ functions:
           bucket: ${{ secrets.BUCKET_NAME }}
           event: s3:ObjectCreated:*
           rules:
-            - prefix: path/to/your/logs/
+            - prefix: 
               suffix: .gz
 
 plugins:
