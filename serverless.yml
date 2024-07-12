@@ -1,6 +1,6 @@
 frameworkVersion: "3"
 
-service: cloudfront-logs-parser-lambda-opensearch
+service: cloudfrontLogs
 useDotenv: true
 
 provider:
@@ -14,9 +14,6 @@ provider:
     OPENSEARCH_USERNAME: ${env:OPENSEARCH_USERNAME}
     OPENSEARCH_PASSWORD: ${env:OPENSEARCH_PASSWORD}
   region: ap-south-1
-  iam:
-    role:
-      name: cloudfront-logs-role 
 
 package:
   patterns:

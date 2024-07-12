@@ -13,17 +13,17 @@ This project is a Serverless application that parses CloudFront logs stored in a
 ## Setup using github actions
 
 ### Step1: Fork this repo
+Update the serverless.yml with desired s3 bucket name
 
 ### Step2: Add secrets:
 Add the following secrets to your GitHub repository settings:
 
 ```bash
-AWS_ACCESS_KEY
-AWS_SECRET_KEY
+MY_AWS_ACCESS_KEY
+MY_AWS_SECRET_KEY
 OPENSEARCH_HOST
 OPENSEARCH_USERNAME
 OPENSEARCH_PASSWORD
-BUCKET_NAME
 ```
 
 ### Step3: Deploy the Application:
