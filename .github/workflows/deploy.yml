@@ -1,12 +1,6 @@
 name: Deploy Lambda
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
@@ -44,11 +38,6 @@ jobs:
 
       - name: Deploy Lambda function
         run: |
-          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
-            npx serverless deploy --stage prod --verbose
-            npx serverless info --stage prod
-          else
-            npx serverless deploy --stage dev --verbose
-            npx serverless info --stage dev
-          fi
+          npx serverless deploy --stage dev --verbose
+          npx serverless info --stage dev
 
