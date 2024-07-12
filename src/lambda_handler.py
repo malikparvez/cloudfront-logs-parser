@@ -9,8 +9,8 @@ from src.cloudfront_parser import parse_cloudfront_logs
 def lambda_handler(event, context):
     try:
         # AWS credentials from env variables
-        aws_access_key = os.environ['aws_access_key']
-        aws_secret_key = os.environ['aws_secret_key']
+        aws_access_key = os.environ['my_aws_access_key']
+        aws_secret_key = os.environ['my_aws_secret_key']
 
         # OpenSearch credentials from env variables
         opensearch_host = os.environ['opensearch_host']
