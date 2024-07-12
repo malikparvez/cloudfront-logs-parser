@@ -14,7 +14,9 @@ provider:
     OPENSEARCH_USERNAME: ${{ secrets.OPENSEARCH_USERNAME }}
     OPENSEARCH_PASSWORD: ${{ secrets.OPENSEARCH_PASSWORD }}
   region: ap-south-1
-
+  iam:
+    role:
+      name: cloudfront-logs-role 
 
 package:
   patterns:
