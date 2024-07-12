@@ -37,13 +37,12 @@ jobs:
         run: npm ci
 
       - name: Deploy Lambda function
-        env:
-          AWS_ACCESS_KEY: ${{ secrets.MY_AWS_ACCESS_KEY }}
-          AWS_SECRET_KEY: ${{ secrets.MY_AWS_SECRET_KEY }}
-          OPENSEARCH_HOST: ${{ secrets.OPENSEARCH_HOST }}
-          OPENSEARCH_USERNAME: ${{ secrets.OPENSEARCH_USERNAME }}
-          OPENSEARCH_PASSWORD: ${{ secrets.OPENSEARCH_PASSWORD }}
-          BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
         run: |
-            npx serverless deploy --stage dev --verbose
-            npx serverless info --stage dev
+          export AWS_ACCESS_KEY=${{ secrets.MY_AWS_ACCESS_KEY }}
+          export AWS_SECRET_KEY=${{ secrets.MY_AWS_SECRET_KEY }}
+          export OPENSEARCH_HOST=${{ secrets.OPENSEARCH_HOST }}
+          export OPENSEARCH_USERNAME=${{ secrets.OPENSEARCH_USERNAME }}
+          export OPENSEARCH_PASSWORD=${{ secrets.OPENSEARCH_PASSWORD }}
+
+          npx serverless deploy --stage dev --verbose
+          npx serverless info --stage dev
