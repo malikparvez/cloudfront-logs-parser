@@ -14,7 +14,7 @@ This project is a Serverless application that parses CloudFront logs stored in a
 
 ### Step1: Fork this repo
 
-Update the serverless.yml with below details
+Update the [serverless.yml](serverless.yml) with below details
 1. desired s3 bucket name and prefix
 2. Add requried region
 
